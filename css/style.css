@@ -77,29 +77,37 @@ body {
 /* Center css */
 .center {
   margin: 0 auto;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px; /* Added shadow to make page border free */
-  height: 420px;
-  width: 410px;
-  max-height: 731px;
+  height: calc(100vh - 180px); /* Full screen height */
+  width: 95%;                /* Full width */
+  max-width: 1400px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 .array {
   display: flex;
-  align-items: flex-start;
-  min-height: 100%;
+  align-items: flex-end;  /* Bars start from bottom */
   height: 100%;
+  width: 100%;
   padding: 1rem;
-  flex-direction: row;
 }
 .cell {
   display: flex;
   align-items: flex-start;
-  flex: 0.5;
+  flex: 1;
   width: 0.000001%;
   margin: 1px;
   background-color: #d6d6d6;
   resize: horizontal;
   position: relative;
   transition: all 0.4s ease-in;
+}
+.bar-value {
+  position: absolute;
+  top: -22px;
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+  font-weight: bold;
+  color: #333;
 }
 .cell.done {
   background-color: #9cec5b;

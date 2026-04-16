@@ -1,5 +1,9 @@
 "use strict";
+
+let isPaused = false;
+let isSorting = false;
 const start = async () => {
+  if (isSorting) return;
   let algoValue = Number(document.querySelector(".algo-menu").value);
   let speedValue = Number(document.querySelector(".speed-menu").value);
 
@@ -10,6 +14,7 @@ const start = async () => {
     alert("No Algorithm Selected");
     return;
   }
+  isSorting = true;
 
   let algorithm = new sortAlgorithms(speedValue);
   if (algoValue === 1) await algorithm.BubbleSort();
@@ -17,7 +22,10 @@ const start = async () => {
   if (algoValue === 3) await algorithm.InsertionSort();
   if (algoValue === 4) await algorithm.MergeSort();
   if (algoValue === 5) await algorithm.QuickSort();
+
+  isSorting = false;
 };
+  
 
 const RenderScreen = async () => {
   let algoValue = Number(document.querySelector(".algo-menu").value);
@@ -37,6 +45,11 @@ const RenderList = async () => {
     node.className = "cell";
     node.setAttribute("value", String(element));
     node.style.height = `${3.8 * element}px`;
+    const label = document.createElement("span");
+    label.className = "bar-value";
+    label.innerText = element;
+
+    node.appendChild(label);
     arrayNode.appendChild(node);
   }
 };
@@ -90,6 +103,16 @@ const response = () => {
 
 document.querySelector(".icon").addEventListener("click", response);
 document.querySelector(".start").addEventListener("click", start);
-document.querySelector(".size-menu").addEventListener("change", RenderScreen);
 document.querySelector(".algo-menu").addEventListener("change", RenderScreen);
 window.onload = RenderScreen;
+
+document.querySelector(".pause").addEventListener("click", () => {
+  isPaused = !isPaused;
+
+  if (isPaused) {
+    document.querySelector(".pause").innerText = "Resume";
+  } else {
+    document.querySelector(".pause").innerText = "Pause";
+  }
+});
+

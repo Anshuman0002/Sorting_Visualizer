@@ -17,7 +17,12 @@ class Helper {
         this.list[index].setAttribute("class", "cell");
     }
     
-    pause = async() => {
+    // UPDATED pause function
+    pause = async () => {
+        while (isPaused) {
+            await new Promise(resolve => setTimeout(resolve, 200));
+        }
+
         return new Promise(resolve => {
             setTimeout(() => {
                 resolve();
@@ -29,18 +34,17 @@ class Helper {
         await this.pause();
         let value1 = Number(this.list[index1].getAttribute("value"));
         let value2 = Number(this.list[index2].getAttribute("value"));
-        if(value1 > value2) {
-            return true;
-        }
-        return false;
+        return value1 > value2;
     }
 
     swap = async (index1, index2) => {
         await this.pause();
         let value1 = this.list[index1].getAttribute("value");
         let value2 = this.list[index2].getAttribute("value");
+
         this.list[index1].setAttribute("value", value2);
         this.list[index1].style.height = `${3.8*value2}px`;
+
         this.list[index2].setAttribute("value", value1);
         this.list[index2].style.height = `${3.8*value1}px`;
     }
